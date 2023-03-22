@@ -32,16 +32,17 @@ const style = {
 };
 
 const title =
-  document.currentScript?.getAttribute('data-title') || 'Smircs - The Legacy';
+  document.currentScript?.getAttribute('data-title') ||
+  process.env.REACT_APP_TITLE;
 const description =
   document.currentScript?.getAttribute('data-description') ||
-  'This product is gated by an NFT. You must own this NFT to pass the gate. Connect your wallet to prove ownership.';
+  process.env.REACT_APP_DESCRIPTION;
 const image =
   document.currentScript?.getAttribute('data-image') ||
-  'https://i.seadn.io/gae/6hwdC3WxMBsmKT6R4_4RCP44MYnMAhYAmtIygmxUMV7_ab7vLmicsmAv5TX2P43NhBtSQeBvUx5v5twbfow4zGBz9dp5cAEFNbVp?auto=format&w=3840';
+  process.env.REACT_APP_IMAGE;
 const contractAddress =
   document.currentScript?.getAttribute('data-contract-address') ||
-  '0x15fd0f20218967725e6b34a2881dc260d7e9d860';
+  process.env.REACT_APP_CONTRACT;
 
 export default function App() {
   const address = useAddress();
@@ -60,14 +61,6 @@ export default function App() {
       setOpen(true);
       return;
     }
-
-    // if (
-    //   window.location.pathname.includes('/figurine') ||
-    //   window.location.pathname.includes('/t-shirt')
-    // ) {
-    //   setOpen(false);
-    //   return;
-    // }
 
     setOpen(false);
   }, [address, balance]);
@@ -97,7 +90,7 @@ export default function App() {
                 height: '100%'
               }}
               image={image}
-              alt="Smircs - The Legacy"
+              alt={process.env.REACT_APP_TITLE}
             />
             <CardContent>
               <Typography gutterBottom variant="h4" component="h2">

@@ -9184,6 +9184,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gated-shopify@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "gated-shopify@workspace:."
+  dependencies:
+    "@emotion/react": ^11.10.6
+    "@emotion/styled": ^11.10.6
+    "@mui/material": ^5.11.14
+    "@testing-library/jest-dom": ^5.16.5
+    "@testing-library/react": ^13.4.0
+    "@testing-library/user-event": ^14.4.3
+    "@thirdweb-dev/auth": ^3.0.7
+    "@thirdweb-dev/react": ^3.9.0
+    "@thirdweb-dev/sdk": ^3.9.0
+    assert: ^2.0.0
+    ethers: ^5.7.2
+    react: ^18.2
+    react-app-rewired: ^2.2.1
+    react-dom: ^18.2
+    react-scripts: ^5.0.1
+    stream: ^0.0.2
+    typescript: ^5.0.2
+    web-vitals: ^3.1.0
+  languageName: unknown
+  linkType: soft
+
 "gauge@npm:^4.0.3":
   version: 4.0.4
   resolution: "gauge@npm:4.0.4"
@@ -15092,30 +15117,6 @@ __metadata:
   checksum: b5167a7142c1da704c0e3af85c402002b597081dd9575031a90b4f229ca5678e9a36e8a374f1814c8156a725d17008ae3bde63b92f9cfd132526379e580bec8b
   languageName: node
   linkType: hard
-
-"smircs-gated-shopify@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "smircs-gated-shopify@workspace:."
-  dependencies:
-    "@emotion/react": ^11.10.6
-    "@emotion/styled": ^11.10.6
-    "@mui/material": ^5.11.14
-    "@testing-library/jest-dom": ^5.16.5
-    "@testing-library/react": ^13.4.0
-    "@testing-library/user-event": ^14.4.3
-    "@thirdweb-dev/react": ^3.9.0
-    "@thirdweb-dev/sdk": ^3.9.0
-    assert: ^2.0.0
-    ethers: ^5.7.2
-    react: ^18.2
-    react-app-rewired: ^2.2.1
-    react-dom: ^18.2
-    react-scripts: ^5.0.1
-    stream: ^0.0.2
-    typescript: ^5.0.2
-    web-vitals: ^3.1.0
-  languageName: unknown
-  linkType: soft
 
 "sockjs@npm:^0.3.24":
   version: 0.3.24

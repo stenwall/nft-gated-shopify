@@ -1,8 +1,15 @@
 {
-  "name": "smircs-gated-shopify",
-  "homepage": ".",
+  "name": "gated-shopify",
   "version": "0.1.0",
+  "author": "stenwall <karin.stenwall@gmail.com>",
   "private": true,
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "deploy": "yarn build && npx thirdweb@latest upload build"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -10,6 +17,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@thirdweb-dev/auth": "^3.0.7",
     "@thirdweb-dev/react": "^3.9.0",
     "@thirdweb-dev/sdk": "^3.9.0",
     "ethers": "^5.7.2",
@@ -23,13 +31,6 @@
     "assert": "^2.0.0",
     "react-app-rewired": "^2.2.1",
     "stream": "^0.0.2"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "deploy": "yarn build && npx thirdweb@latest upload build"
   },
   "eslintConfig": {
     "extends": [
