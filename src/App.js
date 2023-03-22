@@ -17,6 +17,7 @@ import {
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './styles/theme.ts';
+import './styles/styles.css';
 
 const style = {
   position: 'absolute',
@@ -102,7 +103,7 @@ export default function App() {
               </Typography>
             </CardContent>
             <CardActions>
-              <ConnectWallet />
+              <ConnectWallet className="wallet-btn" />
             </CardActions>
           </Card>
         </Box>

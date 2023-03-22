@@ -1,0 +1,13 @@
+.wallet-btn {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #c3c0bb !important;
+  font-weight: normal !important;
+  border-radius: 0 !important;
+  border: 1px solid #c3c0bb !important;
+  width: 100% !important;
+}
+
+.wallet-btn:hover {
+  background: unset !important;
+  box-shadow: 0 0 0 2.3px rgba(195, 192, 187, 1), 0 0 0 2px rgba(15, 14, 18, 1);
+}

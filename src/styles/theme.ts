@@ -1,5 +1,4 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { NONAME } from 'dns';
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -23,14 +22,21 @@ const theme = createTheme({
       '"Segoe UI Symbol"'
     ].join(','),
     body1: {
-      letterSpacing: '0.06rem',
-    },
+      letterSpacing: '0.06rem'
+    }
   },
   components: {
     MuiCard: {
       styleOverrides: {
         root: {
           backgroundImage: 'unset'
+        }
+      }
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          display: 'block'
         }
       }
     }
