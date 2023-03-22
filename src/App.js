@@ -46,12 +46,7 @@ const contractAddress =
 export default function App() {
   const address = useAddress();
   const { contract } = useContract(contractAddress);
-  const { data: balanceOf } = useContractRead(
-    contract,
-    'balanceOf',
-    address,
-    0
-  );
+  const { data: balanceOf } = useContractRead(contract, 'balanceOf', address);
   const balance = balanceOf?.toNumber?.() || 0;
 
   const [open, setOpen] = useState(
@@ -61,11 +56,21 @@ export default function App() {
   );
 
   useEffect(() => {
-    console.log(balance);
-    if (balance === 0) return;
+    if (!address || balance === 0) {
+      setOpen(true);
+      return;
+    }
+
+    // if (
+    //   window.location.pathname.includes('/figurine') ||
+    //   window.location.pathname.includes('/t-shirt')
+    // ) {
+    //   setOpen(false);
+    //   return;
+    // }
 
     setOpen(false);
-  }, [balance]);
+  }, [address, balance]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,7 +85,7 @@ export default function App() {
           <Card
             sx={{
               boxShadow: 0,
-              borderRadius: 0,
+              borderRadius: 0
             }}
           >
             <CardMedia
@@ -98,9 +103,7 @@ export default function App() {
               <Typography gutterBottom variant="h4" component="h2">
                 {title}
               </Typography>
-              <Typography variant="body1">
-                {description}
-              </Typography>
+              <Typography variant="body1">{description}</Typography>
             </CardContent>
             <CardActions>
               <ConnectWallet className="wallet-btn" />
