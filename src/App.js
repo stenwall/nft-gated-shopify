@@ -1,49 +1,112 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import "./styles/Home.css";
+import React, { useEffect, useState } from 'react';
+import {
+  useAddress,
+  ConnectWallet,
+  useContract,
+  useContractRead
+} from '@thirdweb-dev/react';
+import {
+  Modal,
+  Box,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions
+} from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './styles/theme.ts';
 
-export default function Home() {
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  maxWidth: '90vw',
+  bgcolor: '#0f0e12',
+  border: '1px solid #c3c0bb',
+  p: 1
+};
+
+const title =
+  document.currentScript?.getAttribute('data-title') || 'Smircs - The Legacy';
+const description =
+  document.currentScript?.getAttribute('data-description') ||
+  'This product is gated by an NFT. You must own this NFT to pass the gate. Connect your wallet to prove ownership.';
+const image =
+  document.currentScript?.getAttribute('data-image') ||
+  'https://i.seadn.io/gae/6hwdC3WxMBsmKT6R4_4RCP44MYnMAhYAmtIygmxUMV7_ab7vLmicsmAv5TX2P43NhBtSQeBvUx5v5twbfow4zGBz9dp5cAEFNbVp?auto=format&w=3840';
+const contractAddress =
+  document.currentScript?.getAttribute('data-contract-address') ||
+  '0x15fd0f20218967725e6b34a2881dc260d7e9d860';
+
+export default function App() {
+  const address = useAddress();
+  const { contract } = useContract(contractAddress);
+  const { data: balanceOf } = useContractRead(
+    contract,
+    'balanceOf',
+    address,
+    0
+  );
+  const balance = balanceOf?.toNumber?.() || 0;
+
+  const [open, setOpen] = useState(
+    process.env.NODE_ENV === 'development' ||
+      window.location.pathname.includes('/figurine') ||
+      window.location.pathname.includes('/t-shirt')
+  );
+
+  useEffect(() => {
+    console.log(balance);
+    if (balance === 0) return;
+
+    setOpen(false);
+  }, [balance]);
+
   return (
-    <div className="container">
-      <main className="main">
-        <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
-        </h1>
-
-        <p className="description">
-          Get started by configuring your desired network in{" "}
-          <code className="code">src/index.js</code>, then modify the{" "}
-          <code className="code">src/App.js</code> file!
-        </p>
-
-        <div className="connect">
-          <ConnectWallet />
-        </div>
-
-        <div className="grid">
-          <a href="https://portal.thirdweb.com/" className="card">
-            <h2>Portal &rarr;</h2>
-            <p>
-              Guides, references and resources that will help you build with
-              thirdweb.
-            </p>
-          </a>
-
-          <a href="https://thirdweb.com/dashboard" className="card">
-            <h2>Dashboard &rarr;</h2>
-            <p>
-              Deploy, configure and manage your smart contracts from the
-              dashboard.
-            </p>
-          </a>
-
-          <a href="https://portal.thirdweb.com/templates" className="card">
-            <h2>Templates &rarr;</h2>
-            <p>
-              Discover and clone template projects showcasing thirdweb features.
-            </p>
-          </a>
-        </div>
-      </main>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Modal
+        open={open}
+        onClose={() => {}}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Card
+            sx={{
+              boxShadow: 0,
+              borderRadius: 0,
+            }}
+          >
+            <CardMedia
+              component="img"
+              sx={{
+                objectFit: 'contain',
+                borderRadius: 0,
+                width: '100%',
+                height: '100%'
+              }}
+              image={image}
+              alt="Smircs - The Legacy"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h4" component="h2">
+                {title}
+              </Typography>
+              <Typography variant="body1">
+                {description}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <ConnectWallet />
+            </CardActions>
+          </Card>
+        </Box>
+      </Modal>
+    </ThemeProvider>
   );
 }
