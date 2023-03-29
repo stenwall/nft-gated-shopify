@@ -20,14 +20,14 @@ const theme = createTheme({
     h3: {
       letterSpacing: '0.06rem',
       fontWeight: 'inherit',
-      textTransform: 'unset',
+      textTransform: 'none',
       marginBottom: '0',
     },
     body1: {
       letterSpacing: '0.06rem',
       fontSize: 'inherit',
       fontWeight: 'inherit',
-      textTransform: 'unset'
+      textTransform: 'none'
     }
   },
   components: {

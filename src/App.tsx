@@ -52,13 +52,15 @@ export default function App() {
   const [open, setOpen] = useState(
     import.meta.env.DEV ||
       window.location.pathname.includes('/figurine') ||
-      window.location.pathname.includes('/t-shirt')
+      window.location.pathname.includes('/t-shirt') ||
+      window.location.pathname.includes('/checkouts')
   );
 
   useEffect(() => {
     if (
       window.location.pathname.includes('/figurine') ||
-      window.location.pathname.includes('/t-shirt')
+      window.location.pathname.includes('/t-shirt') ||
+      window.location.pathname.includes('/checkouts')
     ) {
       if (!address || balance === 0) {
         setOpen(true);
