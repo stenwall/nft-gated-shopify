@@ -52,8 +52,7 @@ export default function App() {
   const balance = balanceOf?.toNumber?.() || 0;
 
   const [open, setOpen] = useState(
-    import.meta.env.DEV ||
-      window.location.pathname.includes('/figurine') ||
+    window.location.pathname.includes('/figurine') ||
       window.location.pathname.includes('/t-shirt')
   );
 
