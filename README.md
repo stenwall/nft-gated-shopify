@@ -1,12 +1,13 @@
-# NFT token gated Shopify for Smircs
+# NFT token gated Shopify
 
-Toked gate specific products in [Smircs'](https://smircs.mademo.se/) Shopify store.
+Toked gate specific products in Shopify store.
 
 ---
 
 ## Built with
 
 - [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
 - [thirdweb React SDK](https://portal.thirdweb.com/react)
 - [ethers.js](https://docs.ethers.org/v5/)
 
@@ -15,12 +16,12 @@ Toked gate specific products in [Smircs'](https://smircs.mademo.se/) Shopify sto
 Create a project using this example:
 
 ```bash
-npx thirdweb create --template cra-javascript-starter
+npx thirdweb create --template vite-typescript-starter
 ```
 
-You can start editing the page by modifying `src/index.js`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `src/main.tsx`. The page auto-updates as you edit the file.
 
-In `src/index.js`, you'll find the `ThirdwebProvider` wrapping your app, this is necessary for thirdweb's [hooks](https://portal.thirdweb.com/react) and
+In `src/main.tsx`, you'll find the `ThirdwebProvider` wrapping your app, this is necessary for thirdweb's [hooks](https://portal.thirdweb.com/react) and
 [UI Components](https://portal.thirdweb.com/ui-components) to work.
 
 ## Credit

@@ -1,53 +1,30 @@
 {
   "name": "gated-shopify",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "stenwall <karin.stenwall@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "deploy": "yarn build && npx thirdweb@latest upload build"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "yarn build && npx thirdweb@latest upload dist"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@thirdweb-dev/auth": "^3.0.7",
     "@thirdweb-dev/react": "^3.9.0",
     "@thirdweb-dev/sdk": "^3.9.0",
     "ethers": "^5.7.2",
     "react": "^18.2",
-    "react-dom": "^18.2",
-    "react-scripts": "^5.0.1",
-    "typescript": "^5.0.2",
-    "web-vitals": "^3.1.0"
+    "react-dom": "^18.2"
   },
   "devDependencies": {
-    "assert": "^2.0.0",
-    "react-app-rewired": "^2.2.1",
-    "stream": "^0.0.2"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3",
+    "typescript": "^4.7.2",
+    "vite": "^3",
+    "vite-plugin-css-injected-by-js": "^3"
   }
 }
