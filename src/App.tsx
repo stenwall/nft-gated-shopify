@@ -12,7 +12,7 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions,
+  CardActions
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './styles/theme';
@@ -87,7 +87,7 @@ export default function App() {
             <CardContent>
               <Typography
                 gutterBottom
-                variant="h4"
+                variant="h3"
                 component="h2"
                 id="modal-title"
               >

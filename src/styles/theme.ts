@@ -14,15 +14,20 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      '"Helvetica Neue"',
-      'Arial',
+      'Helvetica',
       'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
     ].join(','),
+    h3: {
+      letterSpacing: '0.06rem',
+      fontWeight: 'inherit',
+      textTransform: 'unset',
+      marginBottom: '0',
+    },
     body1: {
-      letterSpacing: '0.06rem'
+      letterSpacing: '0.06rem',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+      textTransform: 'unset'
     }
   },
   components: {
