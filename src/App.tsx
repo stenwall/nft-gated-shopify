@@ -72,7 +72,6 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Modal
-        disablePortal
         open={open}
         onClose={() => {}}
         aria-labelledby="modal-title"
