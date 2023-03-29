@@ -16,7 +16,7 @@ const container = document.createElement('div');
 container.setAttribute('id', elementId);
 document.body.appendChild(container);
 
-const root = createRoot(document.getElementById('root') as HTMLElement);
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <ThirdwebProvider activeChain={activeChain}>
