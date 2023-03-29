@@ -13,10 +13,8 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  CssBaseline
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-// import CssBaseline from '@mui/material/CssBaseline';
 import theme from './styles/theme';
 import './styles/styles.css';
 
@@ -52,14 +50,20 @@ export default function App() {
   const balance = balanceOf?.toNumber?.() || 0;
 
   const [open, setOpen] = useState(
-    window.location.pathname.includes('/figurine') ||
+    import.meta.env.DEV ||
+      window.location.pathname.includes('/figurine') ||
       window.location.pathname.includes('/t-shirt')
   );
 
   useEffect(() => {
-    if (!address || balance === 0) {
-      setOpen(true);
-      return;
+    if (
+      window.location.pathname.includes('/figurine') ||
+      window.location.pathname.includes('/t-shirt')
+    ) {
+      if (!address || balance === 0) {
+        setOpen(true);
+        return;
+      }
     }
 
     setOpen(false);
@@ -67,36 +71,32 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
       <Modal
+        disablePortal
         open={open}
         onClose={() => {}}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
       >
         <Box sx={style}>
-          <Card
-            sx={{
-              boxShadow: 0,
-              borderRadius: 0
-            }}
-          >
+          <Card>
             <CardMedia
               component="img"
-              sx={{
-                objectFit: 'contain',
-                borderRadius: 0,
-                width: '100%',
-                height: '100%'
-              }}
               image={image}
-              alt={process.env.REACT_APP_TITLE}
+              alt={import.meta.env.VITE_TITLE}
             />
             <CardContent>
-              <Typography gutterBottom variant="h4" component="h2">
+              <Typography
+                gutterBottom
+                variant="h4"
+                component="h2"
+                id="modal-title"
+              >
                 {title}
               </Typography>
-              <Typography variant="body1">{description}</Typography>
+              <Typography variant="body1" id="modal-description">
+                {description}
+              </Typography>
             </CardContent>
             <CardActions>
               <ConnectWallet className="wallet-btn" />

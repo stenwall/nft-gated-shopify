@@ -29,7 +29,19 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundImage: 'unset'
+          backgroundImage: 'unset',
+          boxShadow: '0',
+          borderRadius: 0
+        }
+      }
+    },
+    MuiCardMedia: {
+      styleOverrides: {
+        root: {
+          objectFit: 'contain',
+          borderRadius: 0,
+          width: '100%',
+          height: '100%'
         }
       }
     },
