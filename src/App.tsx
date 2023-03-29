@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useAddress,
   ConnectWallet,
@@ -12,10 +12,11 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions
+  CardActions,
+  CssBaseline
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import theme from './styles/theme';
 import './styles/styles.css';
 
