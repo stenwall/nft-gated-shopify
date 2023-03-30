@@ -31,6 +31,14 @@ const theme = createTheme({
     }
   },
   components: {
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: {
+          outline: 'none',
+          color: '#c3c0bb',
+        }
+      }
+    },
     MuiCard: {
       styleOverrides: {
         root: {
