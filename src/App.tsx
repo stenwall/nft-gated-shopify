@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useAddress, ConnectWallet, useContract } from '@thirdweb-dev/react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -34,15 +33,8 @@ export default function App() {
   const { contract } = useContract(contractAddress, 'nft-drop');
   const [owned, setOwned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
+  const location = window.location.href;
   const open = useEventListener({ owned, address, location });
-
-  // const [open, setOpen] = useState(
-  //   import.meta.env.DEV ||
-  //     window.location.pathname.includes('/figurine') ||
-  //     window.location.pathname.includes('/t-shirt') ||
-  //     window.location.pathname.includes('/checkouts')
-  // );
 
   useEffect(() => {
     if (address && contract) {

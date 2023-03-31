@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 interface HookProps {
   owned: boolean;
   address: string | undefined;
-  location: any;
+  location: string | undefined;
 }
 
 interface ListenerProps {
