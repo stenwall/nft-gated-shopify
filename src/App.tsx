@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import theme from './styles/theme';
 import './styles/styles.css';
+import useEventListener from './hooks/useEventListeners';
 
 const title =
   document.currentScript?.getAttribute('data-title') ||
@@ -25,19 +26,20 @@ const contractAddress =
   document.currentScript?.getAttribute('data-contract-address') ||
   import.meta.env.VITE_CONTRACT;
 
-const root = document.querySelector('#MainContent') as HTMLElement;
+// const root = document.querySelector('#MainContent') as HTMLElement;
 
 export default function App() {
   const address = useAddress();
   const { contract } = useContract(contractAddress, 'nft-drop');
   const [owned, setOwned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(
-    import.meta.env.DEV ||
-      window.location.pathname.includes('/figurine') ||
-      window.location.pathname.includes('/t-shirt') ||
-      window.location.pathname.includes('/checkouts')
-  );
+  const open = useEventListener({ owned, address });
+  // const [open, setOpen] = useState(
+  //   import.meta.env.DEV ||
+  //     window.location.pathname.includes('/figurine') ||
+  //     window.location.pathname.includes('/t-shirt') ||
+  //     window.location.pathname.includes('/checkouts')
+  // );
 
   useEffect(() => {
     if (address && contract) {
@@ -58,83 +60,83 @@ export default function App() {
     }
   }, [address, contract]);
 
-  const listenerEvents = [
-    'click',
-    'touchstart',
-    'touchmove',
-    'touchend',
-    'touchcancel',
-    'wheel',
-    'mousewheel',
-    'mousedown',
-    'keydown',
-    'keyup',
-    'keypress',
-    'submit',
-    'mouseover'
-  ];
+  // const listenerEvents = [
+  //   'click',
+  //   'touchstart',
+  //   'touchmove',
+  //   'touchend',
+  //   'touchcancel',
+  //   'wheel',
+  //   'mousewheel',
+  //   'mousedown',
+  //   'keydown',
+  //   'keyup',
+  //   'keypress',
+  //   'submit',
+  //   'mouseover'
+  // ];
 
-  const addListener = (
-    events: string[],
-    element: HTMLElement,
-    callbackFn: (e: Event) => void
-  ) => {
-    events.forEach(event => {
-      element.addEventListener(event, callbackFn);
-    });
-  };
+  // const addListener = (
+  //   events: string[],
+  //   element: HTMLElement,
+  //   callbackFn: (e: Event) => void
+  // ) => {
+  //   events.forEach(event => {
+  //     element.addEventListener(event, callbackFn);
+  //   });
+  // };
 
-  const removeListener = (
-    events: string[],
-    element: HTMLElement,
-    callbackFn: (e: Event) => void
-  ) => {
-    events.forEach(event => {
-      element.removeEventListener(event, callbackFn);
-    });
-  };
+  // const removeListener = (
+  //   events: string[],
+  //   element: HTMLElement,
+  //   callbackFn: (e: Event) => void
+  // ) => {
+  //   events.forEach(event => {
+  //     element.removeEventListener(event, callbackFn);
+  //   });
+  // };
 
-  // Prevent all interacting with the page while the modal is open, even if the modal is deleted from the DOM.
-  useEffect(() => {
-    const checkoutBtn = document.querySelector(
-      '.shopify-payment-button'
-    ) as HTMLElement;
+  // // Prevent all interacting with the page while the modal is open, even if the modal is deleted from the DOM.
+  // useEffect(() => {
+  //   const checkoutBtn = document.querySelector(
+  //     '.shopify-payment-button'
+  //   ) as HTMLElement;
 
-    const handleDisableEvents = (e: Event) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
+  //   const handleDisableEvents = (e: Event) => {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //   };
 
-    if (
-      window.location.pathname.includes('/figurine') ||
-      window.location.pathname.includes('/t-shirt') ||
-      window.location.pathname.includes('/checkouts')
-    ) {
-      if (!address || !owned) {
-        setOpen(true);
-        if (checkoutBtn) {
-          checkoutBtn.style.display = 'none';
-        }
-        root && addListener(listenerEvents, root, handleDisableEvents);
-        return;
-      } else if (owned) {
-        setOpen(false);
-        if (checkoutBtn) {
-          checkoutBtn.style.display = 'block';
-        }
-        root && removeListener(listenerEvents, root, handleDisableEvents);
-      }
-    } else {
-      root && removeListener(listenerEvents, root, handleDisableEvents);
-    }
+  //   if (
+  //     window.location.pathname.includes('/figurine') ||
+  //     window.location.pathname.includes('/t-shirt') ||
+  //     window.location.pathname.includes('/checkouts')
+  //   ) {
+  //     if (!address || !owned) {
+  //       setOpen(true);
+  //       if (checkoutBtn) {
+  //         checkoutBtn.style.display = 'none';
+  //       }
+  //       root && addListener(listenerEvents, root, handleDisableEvents);
+  //       return;
+  //     } else if (owned) {
+  //       setOpen(false);
+  //       if (checkoutBtn) {
+  //         checkoutBtn.style.display = 'block';
+  //       }
+  //       root && removeListener(listenerEvents, root, handleDisableEvents);
+  //     }
+  //   } else {
+  //     root && removeListener(listenerEvents, root, handleDisableEvents);
+  //   }
 
-    return () => {
-      root && removeListener(listenerEvents, root, handleDisableEvents);
-      if (checkoutBtn) {
-        checkoutBtn.style.display = 'block';
-      }
-    };
-  }, [root, owned, address]);
+  //   return () => {
+  //     root && removeListener(listenerEvents, root, handleDisableEvents);
+  //     if (checkoutBtn) {
+  //       checkoutBtn.style.display = 'block';
+  //     }
+  //   };
+  // }, [root, owned, address]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -150,7 +152,7 @@ export default function App() {
               position: 'absolute',
               top: '50%',
               left: '50%',
-              transform: 'translate(-50%, -50%)',
+              transform: 'translate(-50%, -50%)'
             }}
           >
             <CircularProgress size="4rem" />

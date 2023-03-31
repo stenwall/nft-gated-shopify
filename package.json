@@ -1,6 +1,6 @@
 {
   "name": "gated-shopify",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "stenwall <karin.stenwall@gmail.com>",
   "private": true,
   "scripts": {

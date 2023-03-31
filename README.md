@@ -10,6 +10,7 @@ Toked gate specific products in Shopify store.
 - [Vite](https://vitejs.dev/)
 - [thirdweb React SDK](https://portal.thirdweb.com/react)
 - [ethers.js](https://docs.ethers.org/v5/)
+- [Material UI](https://mui.com/)
 
 ## Getting started
 
@@ -26,4 +27,4 @@ In `src/main.tsx`, you'll find the `ThirdwebProvider` wrapping your app, this is
 
 ## Credit
 
-This project is based on [Lazer's](https://www.lazertechnologies.com/) repo [lazer-thirdweb-shopify-token-gating](https://github.com/LazerTechnologies/lazer-thirdweb-shopify-token-gating).
+This project is based on [Lazer's](https://www.lazertechnologies.com/) repo [lazer-thirdweb-shopify-token-gating](https://github.com/LazerTechnologies/lazer-thirdweb-shopify-token-gating) and [thirdweb's](https://thirdweb.com/) [Shopify theme](https://github.com/thirdweb-dev/shopify-thirdweb-theme).
