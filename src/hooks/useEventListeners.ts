@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 interface HookProps {
   owned: boolean;
   address: string | undefined;
+  location: any;
 }
 
 interface ListenerProps {
@@ -37,7 +38,7 @@ const clickEvents = [
   'submit'
 ];
 
-const useEventListener = ({ owned, address }: HookProps) => {
+const useEventListener = ({ owned, address, location }: HookProps) => {
   const [open, setOpen] = useState(false);
 
   const root = document.querySelector('#MainContent') as HTMLElement;
@@ -55,6 +56,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
   };
 
   useEffect(() => {
+    console.log('location: ', location);
     const checkoutBtn = document.querySelector(
       '.shopify-payment-button'
     ) as HTMLElement;
@@ -160,7 +162,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
         checkoutBtn.style.display = 'block';
       }
     };
-  }, [root, owned, address]);
+  }, [root, owned, address, location]);
 
   return open;
 };
