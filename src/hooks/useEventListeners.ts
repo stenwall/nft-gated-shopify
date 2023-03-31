@@ -13,7 +13,7 @@ interface ListenerProps {
   callbackFn: (e: Event) => void;
 }
 
-const listenerEvents = [
+const allEvents = [
   'click',
   'touchstart',
   'touchmove',
@@ -27,6 +27,15 @@ const listenerEvents = [
   'keypress',
   'submit',
   'mouseover'
+];
+
+const clickEvents = [
+  'click',
+  'mousedown',
+  'keydown',
+  'keyup',
+  'keypress',
+  'submit',
 ];
 
 const useEventListener = ({ owned, address }: HookProps) => {
@@ -67,7 +76,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
 
     quickAddBtn &&
       addListener({
-        events: listenerEvents,
+        events: clickEvents,
         element: quickAddBtn,
         callbackFn: handleQuickAdd
       });
@@ -85,7 +94,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
         }
         root &&
           addListener({
-            events: listenerEvents,
+            events: allEvents,
             element: root,
             callbackFn: handleDisableEvents
           });
@@ -97,7 +106,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
         }
         root &&
           removeListener({
-            events: listenerEvents,
+            events: allEvents,
             element: root,
             callbackFn: handleDisableEvents
           });
@@ -105,7 +114,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
     } else {
       root &&
         removeListener({
-          events: listenerEvents,
+          events: allEvents,
           element: root,
           callbackFn: handleDisableEvents
         });
@@ -114,7 +123,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
     return () => {
       root &&
         removeListener({
-          events: listenerEvents,
+          events: allEvents,
           element: root,
           callbackFn: handleDisableEvents
         });
