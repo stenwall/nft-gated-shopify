@@ -58,6 +58,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
 
   useEffect(() => {
     console.log('location: ', location);
+
     const checkoutBtn = document.querySelector(
       '.shopify-payment-button'
     ) as HTMLElement;
@@ -67,7 +68,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     ) as NodeListOf<HTMLElement>;
 
     const productFormBtn = document.querySelector(
-      'product-form__submit'
+      '.product-form__submit'
     ) as HTMLElement;
 
     const handleDisableEvents = (e: Event) => {
@@ -79,11 +80,15 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       if (!address || !owned) {
         handleDisableEvents(e);
         setOpen(true);
-        if (checkoutBtn) {
-          checkoutBtn.style.display = 'none';
-        }
       }
     };
+
+    checkoutBtn &&
+      addListener({
+        events: clickEvents,
+        element: checkoutBtn,
+        callbackFn: handleAddToCart
+      });
 
     quickAddBtns &&
       quickAddBtns.forEach(btn => {
@@ -117,9 +122,14 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
 
     if (owned) {
       setOpen(false);
-      if (checkoutBtn) {
-        checkoutBtn.style.display = 'block';
-      }
+
+      checkoutBtn &&
+        removeListener({
+          events: clickEvents,
+          element: checkoutBtn,
+          callbackFn: handleAddToCart
+        });
+
       quickAddBtns &&
         quickAddBtns.forEach(btn => {
           removeListener({
@@ -128,12 +138,14 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
             callbackFn: handleAddToCart
           });
         });
+
       productFormBtn &&
         removeListener({
           events: clickEvents,
           element: productFormBtn,
           callbackFn: handleAddToCart
         });
+
       root &&
         removeListener({
           events: allEvents,
@@ -145,9 +157,14 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     return () => {
       if (owned) {
         setOpen(false);
-        if (checkoutBtn) {
-          checkoutBtn.style.display = 'block';
-        }
+
+        checkoutBtn &&
+          removeListener({
+            events: clickEvents,
+            element: checkoutBtn,
+            callbackFn: handleAddToCart
+          });
+
         quickAddBtns &&
           quickAddBtns.forEach(btn => {
             removeListener({
@@ -156,12 +173,14 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
               callbackFn: handleAddToCart
             });
           });
+
         productFormBtn &&
           removeListener({
             events: clickEvents,
             element: productFormBtn,
             callbackFn: handleAddToCart
           });
+
         root &&
           removeListener({
             events: allEvents,
