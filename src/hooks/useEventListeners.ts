@@ -1,15 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
-// Prevent all interacting with the page while the modal is open, even if the modal is deleted from the DOM.
 interface HookProps {
   owned: boolean;
   address: string | undefined;
-}
-
-interface ListenerProps {
-  events: string[];
-  element: HTMLElement;
-  callbackFn: (e: Event) => void;
 }
 
 const allEvents = [
@@ -50,45 +43,60 @@ const useEventListener = ({ owned, address }: HookProps) => {
     }
   }, []);
 
-  const root = document.querySelector('#MainContent') as HTMLElement;
-
-  const addListener = ({ events, element, callbackFn }: ListenerProps) => {
+  const addListener = (
+    events: string[],
+    element: HTMLElement,
+    callbackFn: (e: Event) => void
+  ) => {
     events.forEach(event => {
       element.addEventListener(event, callbackFn);
     });
   };
 
-  const removeListener = ({ events, element, callbackFn }: ListenerProps) => {
+  const removeListener = (
+    events: string[],
+    element: HTMLElement,
+    callbackFn: (e: Event) => void
+  ) => {
     events.forEach(event => {
       element.removeEventListener(event, callbackFn);
     });
   };
 
   useEffect(() => {
+    const root = document.querySelector('#MainContent') as HTMLElement;
+
+    // `buy it now` container el on product page
     const quickBuyBtn = document.querySelector(
       '.shopify-payment-button'
     ) as HTMLElement;
 
+    // `buy it now` button el on product page
     const buyBtn = document.querySelector(
       '.shopify-payment-button__button'
     ) as HTMLElement;
 
+    // quick but w eg pay pal from product page
     const buyOptionsBtn = document.querySelector(
       '.shopify-payment-button__more-options'
     ) as HTMLElement;
 
+    // add to cart when not on product page
     const quickAddBtns = document.querySelectorAll(
       '.quick-add__submit'
     ) as NodeListOf<HTMLElement>;
 
+    // add to cart on product page
     const productFormBtn = document.querySelector(
       '.product-form__submit'
     ) as HTMLElement;
 
+    // buy/checkout button on cart-page
     const cartCheckoutBtn = document.querySelector(
       '.cart__checkout-button'
     ) as HTMLElement;
 
+    // container for pay pal etc
     const dynamicCheckoutBtn = document.querySelector(
       '.cart__dynamic-checkout-buttons'
     ) as HTMLElement;
@@ -101,50 +109,19 @@ const useEventListener = ({ owned, address }: HookProps) => {
       dynamicCheckoutBtn.style.display = 'none';
     }
 
-    buyBtn &&
-      addListener({
-        events: clickEvents,
-        element: buyBtn,
-        callbackFn: handleAddToCart
-      });
-
-    buyOptionsBtn &&
-      addListener({
-        events: clickEvents,
-        element: buyBtn,
-        callbackFn: handleAddToCart
-      });
-
+    // add event listeners for all buttons
+    buyBtn && addListener(clickEvents, buyBtn, handleAddToCart);
+    buyOptionsBtn && addListener(clickEvents, buyBtn, handleAddToCart);
     quickAddBtns &&
       quickAddBtns.forEach(btn => {
-        addListener({
-          events: clickEvents,
-          element: btn,
-          callbackFn: handleAddToCart
-        });
+        addListener(clickEvents, btn, handleAddToCart);
       });
-
-    productFormBtn &&
-      addListener({
-        events: clickEvents,
-        element: productFormBtn,
-        callbackFn: handleAddToCart
-      });
-
+    productFormBtn && addListener(clickEvents, productFormBtn, handleAddToCart);
     cartCheckoutBtn &&
-      addListener({
-        events: clickEvents,
-        element: cartCheckoutBtn,
-        callbackFn: handleAddToCart
-      });
+      addListener(clickEvents, cartCheckoutBtn, handleAddToCart);
 
     if (open) {
-      root &&
-        addListener({
-          events: allEvents,
-          element: root,
-          callbackFn: handleDisableEvents
-        });
+      root && addListener(allEvents, root, handleDisableEvents);
     }
 
     if (owned) {
@@ -156,51 +133,20 @@ const useEventListener = ({ owned, address }: HookProps) => {
         dynamicCheckoutBtn.style.display = 'block';
       }
 
-      buyBtn &&
-        removeListener({
-          events: clickEvents,
-          element: buyBtn,
-          callbackFn: handleAddToCart
-        });
-
-      buyOptionsBtn &&
-        removeListener({
-          events: clickEvents,
-          element: buyBtn,
-          callbackFn: handleAddToCart
-        });
-
+      // remove all event listeners
+      buyBtn && removeListener(clickEvents, buyBtn, handleAddToCart);
+      buyOptionsBtn && removeListener(clickEvents, buyBtn, handleAddToCart);
       quickAddBtns &&
         quickAddBtns.forEach(btn => {
-          removeListener({
-            events: clickEvents,
-            element: btn,
-            callbackFn: handleAddToCart
-          });
+          removeListener(clickEvents, btn, handleAddToCart);
         });
-
       productFormBtn &&
-        removeListener({
-          events: clickEvents,
-          element: productFormBtn,
-          callbackFn: handleAddToCart
-        });
-
+        removeListener(clickEvents, productFormBtn, handleAddToCart);
       cartCheckoutBtn &&
-        removeListener({
-          events: clickEvents,
-          element: cartCheckoutBtn,
-          callbackFn: handleAddToCart
-        });
-
-      root &&
-        removeListener({
-          events: allEvents,
-          element: root,
-          callbackFn: handleDisableEvents
-        });
+        removeListener(clickEvents, cartCheckoutBtn, handleAddToCart);
+      root && removeListener(allEvents, root, handleDisableEvents);
     }
-  }, [root, owned, address]);
+  }, [owned, address]);
 
   return open;
 };
