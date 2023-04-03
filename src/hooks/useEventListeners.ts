@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Prevent all interacting with the page while the modal is open, even if the modal is deleted from the DOM.
 interface HookProps {
@@ -40,6 +40,17 @@ const clickEvents = [
 
 const useEventListener = ({ owned, address, location }: HookProps) => {
   const [open, setOpen] = useState(false);
+  const handleDisableEvents = useCallback((e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+  const handleAddToCart = useCallback((e: Event) => {
+    console.log('`owned` in `handleAddToCart`', owned);
+    if (!owned) {
+      handleDisableEvents(e);
+      setOpen(true);
+    }
+  }, []);
 
   const root = document.querySelector('#MainContent') as HTMLElement;
 
@@ -79,19 +90,19 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       '.product-form__submit'
     ) as HTMLElement;
 
-    const handleDisableEvents = (e: Event) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
+    // const handleDisableEvents = (e: Event) => {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    // };
 
-    const handleAddToCart = (e: Event) => {
-      console.log('`owned` in `handleAddToCart`', owned);
-      console.log('event.target in `handleAddToCart`', e.target);
-      if (!owned) {
-        handleDisableEvents(e);
-        setOpen(true);
-      }
-    };
+    // const handleAddToCart = (e: Event) => {
+    //   console.log('`owned` in `handleAddToCart`', owned);
+    //   console.log('event.target in `handleAddToCart`', e.target);
+    //   if (!owned) {
+    //     handleDisableEvents(e);
+    //     setOpen(true);
+    //   }
+    // };
 
     if (checkoutBtn) {
       checkoutBtn.style.display = 'none';
@@ -172,20 +183,12 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
           });
         });
 
-      if (productFormBtn) {
+      productFormBtn &&
         removeListener({
           events: clickEvents,
           element: productFormBtn,
           callbackFn: handleAddToCart
         });
-      }
-
-      // productFormBtn &&
-      //   removeListener({
-      //     events: clickEvents,
-      //     element: productFormBtn,
-      //     callbackFn: handleAddToCart
-      //   });
 
       root &&
         removeListener({
