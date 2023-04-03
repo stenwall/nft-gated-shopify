@@ -85,6 +85,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     };
 
     const handleAddToCart = (e: Event) => {
+      console.log('`owned` in `handleAddToCart`', owned);
       if (!owned) {
         handleDisableEvents(e);
         setOpen(true);
@@ -140,6 +141,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     }
 
     if (owned) {
+      console.log('`owned` in top of if-statement', owned);
       setOpen(false);
 
       if (checkoutBtn) {
@@ -182,10 +184,13 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
           element: root,
           callbackFn: handleDisableEvents
         });
+
+      console.log('`owned` in bottom of if-statement', owned);
     }
 
     return () => {
       if (owned) {
+        console.log('`owned` in if-statement in return-fn', owned);
         setOpen(false);
 
         if (checkoutBtn) {
