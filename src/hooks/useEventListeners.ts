@@ -54,6 +54,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       element.removeEventListener(event, callbackFn);
     });
   };
+  65;
 
   useEffect(() => {
     console.log('location: ', location);
@@ -100,6 +101,10 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
         callbackFn: handleAddToCart
       });
 
+    console.log('checkoutBtn', checkoutBtn);
+    console.log('productFormBtn', productFormBtn);
+    console.log('quickAddBtns', quickAddBtns);
+
     if (open) {
       root &&
         addListener({
@@ -138,28 +143,31 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     }
 
     return () => {
-      quickAddBtns &&
-        quickAddBtns.forEach(btn => {
+      if (owned) {
+        setOpen(false);
+        if (checkoutBtn) {
+          checkoutBtn.style.display = 'block';
+        }
+        quickAddBtns &&
+          quickAddBtns.forEach(btn => {
+            removeListener({
+              events: clickEvents,
+              element: btn,
+              callbackFn: handleAddToCart
+            });
+          });
+        productFormBtn &&
           removeListener({
             events: clickEvents,
-            element: btn,
+            element: productFormBtn,
             callbackFn: handleAddToCart
           });
-        });
-      productFormBtn &&
-        removeListener({
-          events: clickEvents,
-          element: productFormBtn,
-          callbackFn: handleAddToCart
-        });
-      root &&
-        removeListener({
-          events: allEvents,
-          element: root,
-          callbackFn: handleDisableEvents
-        });
-      if (checkoutBtn) {
-        checkoutBtn.style.display = 'block';
+        root &&
+          removeListener({
+            events: allEvents,
+            element: root,
+            callbackFn: handleDisableEvents
+          });
       }
     };
   }, [root, owned, address, location]);
