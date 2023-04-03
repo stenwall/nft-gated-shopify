@@ -85,11 +85,15 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     };
 
     const handleAddToCart = (e: Event) => {
-      if (!address || !owned) {
+      if (!owned) {
         handleDisableEvents(e);
         setOpen(true);
       }
     };
+
+    if (checkoutBtn) {
+      checkoutBtn.style.display = 'none';
+    }
 
     buyBtn &&
       addListener({
@@ -127,10 +131,6 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     console.log('quickAddBtns', quickAddBtns);
 
     if (open) {
-      if (checkoutBtn) {
-        checkoutBtn.style.display = 'none';
-      }
-
       root &&
         addListener({
           events: allEvents,
