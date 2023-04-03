@@ -59,8 +59,12 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
   useEffect(() => {
     console.log('location: ', location);
 
-    const checkoutBtn = document.querySelector(
-      '.shopify-payment-button'
+    const buyBtn = document.querySelector(
+      '.shopify-payment-button__button'
+    ) as HTMLElement;
+
+    const buyOptionsBtn = document.querySelector(
+      '.shopify-payment-button__more-options'
     ) as HTMLElement;
 
     const quickAddBtns = document.querySelectorAll(
@@ -83,10 +87,17 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       }
     };
 
-    checkoutBtn &&
+    buyBtn &&
       addListener({
         events: clickEvents,
-        element: checkoutBtn,
+        element: buyBtn,
+        callbackFn: handleAddToCart
+      });
+
+    buyOptionsBtn &&
+      addListener({
+        events: clickEvents,
+        element: buyBtn,
         callbackFn: handleAddToCart
       });
 
@@ -106,7 +117,8 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
         callbackFn: handleAddToCart
       });
 
-    console.log('checkoutBtn', checkoutBtn);
+    console.log('buyBtn', buyBtn);
+    console.log('buyOptionsBtn', buyOptionsBtn);
     console.log('productFormBtn', productFormBtn);
     console.log('quickAddBtns', quickAddBtns);
 
@@ -117,16 +129,22 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
           element: root,
           callbackFn: handleDisableEvents
         });
-      return;
     }
 
     if (owned) {
       setOpen(false);
 
-      checkoutBtn &&
+      buyBtn &&
         removeListener({
           events: clickEvents,
-          element: checkoutBtn,
+          element: buyBtn,
+          callbackFn: handleAddToCart
+        });
+
+      buyOptionsBtn &&
+        removeListener({
+          events: clickEvents,
+          element: buyBtn,
           callbackFn: handleAddToCart
         });
 
@@ -158,10 +176,17 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       if (owned) {
         setOpen(false);
 
-        checkoutBtn &&
+        buyBtn &&
           removeListener({
             events: clickEvents,
-            element: checkoutBtn,
+            element: buyBtn,
+            callbackFn: handleAddToCart
+          });
+
+        buyOptionsBtn &&
+          removeListener({
+            events: clickEvents,
+            element: buyBtn,
             callbackFn: handleAddToCart
           });
 
