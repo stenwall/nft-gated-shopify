@@ -86,6 +86,7 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
 
     const handleAddToCart = (e: Event) => {
       console.log('`owned` in `handleAddToCart`', owned);
+      console.log('event.target in `handleAddToCart`', e.target);
       if (!owned) {
         handleDisableEvents(e);
         setOpen(true);
@@ -171,12 +172,20 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
           });
         });
 
-      productFormBtn &&
+      if (productFormBtn) {
         removeListener({
           events: clickEvents,
           element: productFormBtn,
           callbackFn: handleAddToCart
         });
+      }
+
+      // productFormBtn &&
+      //   removeListener({
+      //     events: clickEvents,
+      //     element: productFormBtn,
+      //     callbackFn: handleAddToCart
+      //   });
 
       root &&
         removeListener({
@@ -188,53 +197,53 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       console.log('`owned` in bottom of if-statement', owned);
     }
 
-    return () => {
-      if (owned) {
-        console.log('`owned` in if-statement in return-fn', owned);
-        setOpen(false);
+    // return () => {
+    //   if (owned) {
+    //     console.log('`owned` in if-statement in return-fn', owned);
+    //     setOpen(false);
 
-        if (checkoutBtn) {
-          checkoutBtn.style.display = 'block';
-        }
+    //     if (checkoutBtn) {
+    //       checkoutBtn.style.display = 'block';
+    //     }
 
-        buyBtn &&
-          removeListener({
-            events: clickEvents,
-            element: buyBtn,
-            callbackFn: handleAddToCart
-          });
+    //     buyBtn &&
+    //       removeListener({
+    //         events: clickEvents,
+    //         element: buyBtn,
+    //         callbackFn: handleAddToCart
+    //       });
 
-        buyOptionsBtn &&
-          removeListener({
-            events: clickEvents,
-            element: buyBtn,
-            callbackFn: handleAddToCart
-          });
+    //     buyOptionsBtn &&
+    //       removeListener({
+    //         events: clickEvents,
+    //         element: buyBtn,
+    //         callbackFn: handleAddToCart
+    //       });
 
-        quickAddBtns &&
-          quickAddBtns.forEach(btn => {
-            removeListener({
-              events: clickEvents,
-              element: btn,
-              callbackFn: handleAddToCart
-            });
-          });
+    //     quickAddBtns &&
+    //       quickAddBtns.forEach(btn => {
+    //         removeListener({
+    //           events: clickEvents,
+    //           element: btn,
+    //           callbackFn: handleAddToCart
+    //         });
+    //       });
 
-        productFormBtn &&
-          removeListener({
-            events: clickEvents,
-            element: productFormBtn,
-            callbackFn: handleAddToCart
-          });
+    //     productFormBtn &&
+    //       removeListener({
+    //         events: clickEvents,
+    //         element: productFormBtn,
+    //         callbackFn: handleAddToCart
+    //       });
 
-        root &&
-          removeListener({
-            events: allEvents,
-            element: root,
-            callbackFn: handleDisableEvents
-          });
-      }
-    };
+    //     root &&
+    //       removeListener({
+    //         events: allEvents,
+    //         element: root,
+    //         callbackFn: handleDisableEvents
+    //       });
+    //   }
+    // };
   }, [root, owned, address, location]);
 
   return open;
