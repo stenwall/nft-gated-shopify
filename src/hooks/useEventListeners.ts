@@ -59,6 +59,10 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
   useEffect(() => {
     console.log('location: ', location);
 
+    const checkoutBtn = document.querySelector(
+      '.shopify-payment-button'
+    ) as HTMLElement;
+
     const buyBtn = document.querySelector(
       '.shopify-payment-button__button'
     ) as HTMLElement;
@@ -123,6 +127,10 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     console.log('quickAddBtns', quickAddBtns);
 
     if (open) {
+      if (checkoutBtn) {
+        checkoutBtn.style.display = 'none';
+      }
+
       root &&
         addListener({
           events: allEvents,
@@ -133,6 +141,10 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
 
     if (owned) {
       setOpen(false);
+
+      if (checkoutBtn) {
+        checkoutBtn.style.display = 'block';
+      }
 
       buyBtn &&
         removeListener({
@@ -175,6 +187,10 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     return () => {
       if (owned) {
         setOpen(false);
+
+        if (checkoutBtn) {
+          checkoutBtn.style.display = 'block';
+        }
 
         buyBtn &&
           removeListener({
