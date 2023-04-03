@@ -31,8 +31,8 @@ export default function App() {
   const { contract } = useContract(contractAddress, 'nft-drop');
   const [owned, setOwned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const location = window.location.href;
-  const open = useEventListener({ owned, address, location });
+  // const location = window.location.href;
+  const open = useEventListener({ owned, address });
 
   useEffect(() => {
     if (address && contract) {

@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react';
 interface HookProps {
   owned: boolean;
   address: string | undefined;
-  location: string | undefined;
 }
 
 interface ListenerProps {
@@ -38,14 +37,13 @@ const clickEvents = [
   'submit'
 ];
 
-const useEventListener = ({ owned, address, location }: HookProps) => {
+const useEventListener = ({ owned, address }: HookProps) => {
   const [open, setOpen] = useState(false);
   const handleDisableEvents = useCallback((e: Event) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);
   const handleAddToCart = useCallback((e: Event) => {
-    console.log('`owned` in `handleAddToCart`', owned);
     if (!owned) {
       handleDisableEvents(e);
       setOpen(true);
@@ -65,11 +63,8 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
       element.removeEventListener(event, callbackFn);
     });
   };
-  65;
 
   useEffect(() => {
-    console.log('location: ', location);
-
     const quickBuyBtn = document.querySelector(
       '.shopify-payment-button'
     ) as HTMLElement;
@@ -143,13 +138,6 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
         callbackFn: handleAddToCart
       });
 
-    console.log('buyBtn', buyBtn);
-    console.log('buyOptionsBtn', buyOptionsBtn);
-    console.log('productFormBtn', productFormBtn);
-    console.log('quickAddBtns', quickAddBtns);
-    console.log('cartCheckoutBtn', cartCheckoutBtn);
-    console.log('dynamicCheckoutBtn', dynamicCheckoutBtn);
-
     if (open) {
       root &&
         addListener({
@@ -160,9 +148,6 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
     }
 
     if (owned) {
-      console.log('`owned` in top of if-statement', owned);
-      setOpen(false);
-
       if (quickBuyBtn) {
         quickBuyBtn.style.display = 'block';
       }
@@ -214,58 +199,8 @@ const useEventListener = ({ owned, address, location }: HookProps) => {
           element: root,
           callbackFn: handleDisableEvents
         });
-
-      console.log('`owned` in bottom of if-statement', owned);
     }
-
-    // return () => {
-    //   if (owned) {
-    //     console.log('`owned` in if-statement in return-fn', owned);
-    //     setOpen(false);
-
-    //     if (quickBuyBtn) {
-    //       quickBuyBtn.style.display = 'block';
-    //     }
-
-    //     buyBtn &&
-    //       removeListener({
-    //         events: clickEvents,
-    //         element: buyBtn,
-    //         callbackFn: handleAddToCart
-    //       });
-
-    //     buyOptionsBtn &&
-    //       removeListener({
-    //         events: clickEvents,
-    //         element: buyBtn,
-    //         callbackFn: handleAddToCart
-    //       });
-
-    //     quickAddBtns &&
-    //       quickAddBtns.forEach(btn => {
-    //         removeListener({
-    //           events: clickEvents,
-    //           element: btn,
-    //           callbackFn: handleAddToCart
-    //         });
-    //       });
-
-    //     productFormBtn &&
-    //       removeListener({
-    //         events: clickEvents,
-    //         element: productFormBtn,
-    //         callbackFn: handleAddToCart
-    //       });
-
-    //     root &&
-    //       removeListener({
-    //         events: allEvents,
-    //         element: root,
-    //         callbackFn: handleDisableEvents
-    //       });
-    //   }
-    // };
-  }, [root, owned, address, location]);
+  }, [root, owned, address]);
 
   return open;
 };
