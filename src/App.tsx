@@ -8,6 +8,8 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import theme from './styles/theme';
 import './styles/styles.css';
@@ -31,7 +33,7 @@ export default function App() {
   const { contract } = useContract(contractAddress, 'nft-drop');
   const [owned, setOwned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const open = useEventListener({ owned, address });
+  const { open, setOpen } = useEventListener({ owned, address });
 
   useEffect(() => {
     if (address && contract) {
@@ -85,12 +87,11 @@ export default function App() {
               p: 1
             }}
           >
+            <IconButton aria-label="close" onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </IconButton>
             <Card>
-              <CardMedia
-                component="img"
-                image={image}
-                alt={import.meta.env.VITE_TITLE}
-              />
+              <CardMedia component="img" image={image} alt={title} />
               <CardContent>
                 <Typography
                   gutterBottom

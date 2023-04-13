@@ -13,15 +13,12 @@ const theme = createTheme({
     divider: '#4d4d4d'
   },
   typography: {
-    fontFamily: [
-      'Helvetica',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ['Helvetica', 'sans-serif'].join(','),
     h3: {
       letterSpacing: '0.06rem',
       fontWeight: 'inherit',
       textTransform: 'none',
-      marginBottom: '0',
+      marginBottom: '0'
     },
     body1: {
       letterSpacing: '0.06rem',
@@ -35,7 +32,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           outline: 'none',
-          color: '#c3c0bb',
+          color: '#c3c0bb'
         }
       }
     },
@@ -62,6 +59,21 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           display: 'block'
+        }
+      }
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          background: '#0f0e12',
+          borderRadius: 0,
+          '&:hover': {
+            background: '#0f0e12',
+            borderRadius: '50%',
+          }
         }
       }
     }

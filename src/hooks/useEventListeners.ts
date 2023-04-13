@@ -148,7 +148,7 @@ const useEventListener = ({ owned, address }: HookProps) => {
     }
   }, [owned, address]);
 
-  return open;
+  return { open, setOpen };
 };
 
 export default useEventListener;
